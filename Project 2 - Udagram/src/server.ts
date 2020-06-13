@@ -2,6 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import {filterImageFromURL, deleteLocalFiles} from './util/util';
 import { isWebUri } from 'valid-url';
+import { Request, Response, NextFunction } from "express";
 
 (async () => {
 
@@ -30,14 +31,14 @@ import { isWebUri } from 'valid-url';
   /**************************************************************************** */
 
   //! END @TODO1
-
   /**Retrieve a filtered image specified as a "image_url" query parameter and validate it is HTTP(S) format. If successful, downloads an image to client that is resized, grey-scaled and compressed */
-  app.get("/filteredimage", async (req, res) => {
-    const { image_url } = req.query;
+  app.get("/filteredimage/", async (req : Request, res: Response) => {
+    // let { image_url } = req.query;
+    const image_url: string = req.query.image_url;
 
     /** Perform validation tests BEFORE attempting download  */
     if (!image_url) {
-      return res.status(400).send("QUERY Parameter 'image_url' query was not supplied. Please type a valid image URL after the = sign in http://{ElasticBeanStalk_app_URL or localhost}/filteredimage?image_url= ")
+      return res.status(400).send("QUERY Parameter 'image_url' query was not supplied. Please type a valid image URL after = , in http://{EB_URL or localhost}/filteredimage?image_url= ")
     }
     else if (!isWebUri(image_url)) {
       return res.status(422).send("The requested URL is not a valid URL format")
@@ -50,7 +51,7 @@ import { isWebUri } from 'valid-url';
 
   // Root Endpoint
   // Displays a simple message to the user
-  app.get( "/", async ( req, res ) => {
+  app.get( "/", async (req : Request, res: Response)  => {
     res.send("try GET /filteredimage?image_url={{}}")
   } );
 
