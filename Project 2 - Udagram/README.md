@@ -6,8 +6,8 @@
 You'll need to create a new node server. Open a new terminal within the project directory and run:
 
 1. Initialize a new project: `npm i`
-2. Run the development server with `npm run dev`
-3. Build the app for deployment using `npm run build`
+2. Run the development server on localhost with `npm run dev` for local development
+3. Build the app for deployment using `npm run build` when it is production ready
 
 Changes are made to *dev* branch and then merged back into *master*
 
